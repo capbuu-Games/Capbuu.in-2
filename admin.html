@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Developer Dashboard | Capbuu Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="capbuu games.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-admin="true">
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="brand"><img src="capbuu games.png" alt="Capbuu Games logo"><span>Developer Dashboard</span></a>
+            <div class="nav-links admin-nav">
+                <a href="index.html">View Site</a>
+                <a href="projects.html">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="admin-main">
+        <section class="admin-lock" id="authPanel">
+            <div class="auth-card">
+                <p class="eyebrow">Private</p>
+                <h1>Developer Access</h1>
+                <p id="authHelp">Set a password the first time you open this dashboard. After that, only this browser can unlock it with that password.</p>
+                <form id="authForm" class="admin-form">
+                    <label for="adminPassword">Password</label>
+                    <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Your private password" required>
+                    <button class="btn btn-primary" type="submit" id="authButton">Unlock Dashboard</button>
+                    <button class="btn btn-ghost" type="button" id="resetPasswordButton">Reset local password</button>
+                    <span class="success-message" id="authMessage"></span>
+                </form>
+            </div>
+        </section>
+
+        <section class="admin-app" id="adminApp" hidden>
+            <div class="container admin-layout">
+                <aside class="admin-sidebar">
+                    <div>
+                        <p class="eyebrow">Projects</p>
+                        <h2>Content Studio</h2>
+                    </div>
+                    <div id="projectPicker" class="project-picker"></div>
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" id="newProjectButton" type="button">New Project</button>
+                        <button class="btn btn-ghost" id="duplicateProjectButton" type="button">Duplicate</button>
+                        <button class="btn btn-ghost danger" id="deleteProjectButton" type="button">Delete</button>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="btn btn-ghost" id="exportButton" type="button">Export Backup</button>
+                        <button class="btn btn-ghost" id="exportDataButton" type="button">Export data.js</button>
+                        <label class="btn btn-ghost file-button" for="importFile">Import Backup</label>
+                        <input id="importFile" type="file" accept="application/json" hidden>
+                        <button class="btn btn-ghost danger" id="resetDataButton" type="button">Reset Defaults</button>
+                        <button class="btn btn-ghost" id="lockButton" type="button">Lock</button>
+                    </div>
+                </aside>
+
+                <section class="admin-editor">
+                    <div class="admin-toolbar">
+                        <div>
+                            <p class="eyebrow">Editor</p>
+                            <h1 id="editorTitle">Project Details</h1>
+                        </div>
+                        <button class="btn btn-primary" id="saveProjectButton" type="button">Save Website</button>
+                    </div>
+
+                    <form id="projectForm" class="developer-form">
+                        <div class="form-panel">
+                            <h2>Basics</h2>
+                            <div class="form-grid two">
+                                <label>Project ID<input name="id" required placeholder="project-id"></label>
+                                <label>Title<input name="title" required placeholder="Game title"></label>
+                                <label>Status Label<input name="statusLabel" placeholder="Live on Google Play"></label>
+                                <label>Status Type
+                                    <select name="statusType">
+                                        <option value="live">Live</option>
+                                        <option value="progress">In Development</option>
+                                        <option value="testing">Testing</option>
+                                    </select>
+                                </label>
+                                <label>Type<input name="type" placeholder="Mobile Game"></label>
+                                <label>Genre<input name="genre" placeholder="Arcade"></label>
+                                <label>Platform<input name="platform" placeholder="Android"></label>
+                                <label>Role<input name="role" placeholder="Solo Developer"></label>
+                                <label>Focus<input name="focus" placeholder="Gameplay, UI, polish"></label>
+                                <label>Project Link<input name="linkUrl" placeholder="https://..."></label>
+                                <label>Link Button Text<input name="linkLabel" placeholder="View Project"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-panel">
+                            <h2>Copy</h2>
+                            <label>Short Tagline<textarea name="tagline" rows="2" placeholder="One sentence for project cards"></textarea></label>
+                            <label>Hero Summary<textarea name="summary" rows="3" placeholder="Main case-study intro"></textarea></label>
+                            <label>Overview<textarea name="overview" rows="4" placeholder="Detailed project overview"></textarea></label>
+                            <div class="form-grid three">
+                                <label>Gameplay Loop<textarea name="loop" rows="5"></textarea></label>
+                                <label>Technical Work<textarea name="technical" rows="5"></textarea></label>
+                                <label>Hiring Signal<textarea name="signal" rows="5"></textarea></label>
+                            </div>
+                        </div>
+
+                        <div class="form-panel">
+                            <h2>Media</h2>
+                            <div class="form-grid two">
+                                <label>Logo URL or file path<input name="logo" placeholder="logo.png"></label>
+                                <label>Upload Logo<input id="logoUpload" type="file" accept="image/*"></label>
+                                <label>Cover URL or file path<input name="cover" placeholder="cover.png"></label>
+                                <label>Upload Cover<input id="coverUpload" type="file" accept="image/*"></label>
+                            </div>
+                            <label>Screenshots, one per line<textarea name="screenshots" rows="5" placeholder="screenshot-1.png"></textarea></label>
+                            <label>Upload Screenshots<input id="screenshotsUpload" type="file" accept="image/*" multiple></label>
+                            <label>Videos, one URL per line<textarea name="videos" rows="4" placeholder="https://youtube.com/watch?v=..."></textarea></label>
+                            <label>Upload Video<input id="videoUpload" type="file" accept="video/*"></label>
+                            <p class="admin-note">Large uploaded media is stored in this browser. For deployment, export a backup and keep original files safe.</p>
+                        </div>
+                    </form>
+
+                    <section class="form-panel">
+                        <h2>Preview</h2>
+                        <div class="project-grid admin-preview" id="adminPreview"></div>
+                    </section>
+
+                    <section class="form-panel newsletter-tools">
+                        <h2>Newsletter Update</h2>
+                        <p>When a new game is ready, generate an announcement from the selected project. The text is copied so you can send it to the subscriber list collected from the website popup.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" id="copyAnnouncementButton" type="button">Copy Announcement</button>
+                            <a class="btn btn-ghost" href="mailto:capbuugames@gmail.com?subject=New%20Capbuu%20Games%20Update">Open Email</a>
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <div class="popup-notification" id="popupNotification" role="status" aria-live="polite" hidden>
+        <span class="popup-status"></span>
+        <span id="popupMessage">Saved.</span>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
